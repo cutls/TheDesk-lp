@@ -1,6 +1,9 @@
 import type { GatsbyConfig } from "gatsby"
 
 const config: GatsbyConfig = {
+  flags: {
+    DEV_SSR: true
+  },
   siteMetadata: {
     title: `TheDesk - Mastodon Client for PC`,
     siteUrl: `https://thedesk.top`,

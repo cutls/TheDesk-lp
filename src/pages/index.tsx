@@ -3,8 +3,12 @@ import type { HeadFC, PageProps } from "gatsby"
 import Page from '../component/Page'
 
 const IndexPage: React.FC<PageProps> = () => {
+  const [isDefault, setIsDefault] = React.useState(true)
+  React.useEffect(() => {
+    setIsDefault(!!navigator.language.match(/^ja/))
+  }, [])
   return (
-    <Page lang="ja" isDefault={!!navigator.language.match(/^ja/)} />
+    <Page lang="ja" isDefault={isDefault} />
   )
 }
 
