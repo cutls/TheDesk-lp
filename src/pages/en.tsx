@@ -4,7 +4,7 @@ import Page from '../component/Page'
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
-    <Page lang="ja" />
+    <Page lang="en" />
   )
 }
 

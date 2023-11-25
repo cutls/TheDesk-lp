@@ -1,49 +1,23 @@
 import * as React from "react"
-import { Link, HeadFC, PageProps } from "gatsby"
+import type { HeadFC, PageProps } from "gatsby"
+import { Badge, Box, Container, Link, Text } from "@chakra-ui/react"
+import { files } from "../meta"
+import { getColorOfCodename } from "../utils/getColorOfCodename"
 
-const pageStyles = {
-  color: "#232129",
-  padding: "96px",
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-}
-const headingStyles = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-}
-
-const paragraphStyles = {
-  marginBottom: 48,
-}
-const codeStyles = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-}
-
-const NotFoundPage: React.FC<PageProps> = () => {
+const IndexPage: React.FC<PageProps> = () => {
   return (
-    <main style={pageStyles}>
-      <h1 style={headingStyles}>Page not found</h1>
-      <p style={paragraphStyles}>
-        Sorry 😔, we couldn’t find what you were looking for.
-        <br />
-        {process.env.NODE_ENV === "development" ? (
-          <>
-            <br />
-            Try creating a page in <code style={codeStyles}>src/pages/</code>.
-            <br />
-          </>
-        ) : null}
-        <br />
-        <Link to="/">Go home</Link>.
-      </p>
-    </main>
+    <Container centerContent={true} h="100vh" justifyContent="center">
+      <Box textAlign="center">
+        <Text fontSize={25}>404 Not Found</Text>
+        <Text fontStyle="italic">You're in complete darkness.</Text>
+        <Text>アドレスをお確かめください。</Text>
+        <Text mt={3}><Link color="teal" href="https://thedesk.top" target="_blank" rel="noopener">TheDesk</Link></Text>
+        <Badge colorScheme={getColorOfCodename(files.version)} textTransform="initial">{files.version} ({files.codename})</Badge>
+      </Box>
+    </Container>
   )
 }
 
-export default NotFoundPage
+export default IndexPage
 
-export const Head: HeadFC = () => <title>Not found</title>
+export const Head: HeadFC = () => <title>TheDesk - 404</title>
