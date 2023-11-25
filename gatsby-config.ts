@@ -11,6 +11,12 @@ const config: GatsbyConfig = {
   graphqlTypegen: true,
   plugins: [
     {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        icon: `src/images/desk.png`, 
+      },
+    },
+    {
       resolve: '@chakra-ui/gatsby-plugin',
       options: {
         /**

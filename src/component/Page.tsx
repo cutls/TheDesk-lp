@@ -1,5 +1,6 @@
 import { Badge, Box, Button, ButtonGroup, Code, Container, Heading, Image, Link, Stat, StatArrow, StatGroup, StatHelpText, StatLabel, StatNumber, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
 import React from 'react'
+import DeskLogo from '../images/desk.svg'
 import LP1 from '../images/lp1.png'
 import LP2 from '../images/lp2.png'
 import { files } from '../meta'
@@ -63,6 +64,7 @@ const a: React.FC<IProps> = (props: { lang: 'ja' | 'en' }) => {
     const t = i18n[lang]
     return (
         <Container centerContent={true} p={10}>
+            <Image src={DeskLogo} w={70} /> 
             <Heading as="h1" fontSize={40} textAlign="center">TheDesk</Heading>
             <Badge colorScheme={getColorOfCodename(files.version)} textTransform="initial">{files.version} ({files.codename})</Badge>
             <Text mt={1} mb={30} textAlign="center">Mastodon client for PC with myriad features</Text>
