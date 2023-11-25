@@ -56,18 +56,21 @@ const i18n = {
 }
 interface IProps {
     lang: 'ja' | 'en'
+    isDefault: boolean
 }
 const s = (size: number) => `${Math.floor(size / 1024 / 1024 * 10) / 10}MB`
 
-const a: React.FC<IProps> = (props: { lang: 'ja' | 'en' }) => {
-    const { lang } = props
+const a: React.FC<IProps> = (props: IProps) => {
+
+    const { lang, isDefault } = props
     const t = i18n[lang]
     return (
         <Container centerContent={true} p={10}>
-            <Image src={DeskLogo} w={70} /> 
+            <Image src={DeskLogo} w={70} />
             <Heading as="h1" fontSize={40} textAlign="center">TheDesk</Heading>
             <Badge colorScheme={getColorOfCodename(files.version)} textTransform="initial">{files.version} ({files.codename})</Badge>
             <Text mt={1} mb={30} textAlign="center">Mastodon client for PC with myriad features</Text>
+            {!isDefault ?  <Button as="a" href="/en" size="lg" mb={3} colorScheme="orange">Switch to {lang === 'ja' ? 'English' : '日本語'}</Button> : null}
             <Box h={450} borderColor="#E2E8F0" borderWidth={1} overflowY="scroll" p={3} mb={10} borderRadius={5}>
                 <Tabs w={600} maxW="calc(100vw - 2rem)">
                     <TabList>
@@ -165,7 +168,7 @@ const a: React.FC<IProps> = (props: { lang: 'ja' | 'en' }) => {
                     <StatNumber>{files.lastDls.toLocaleString()}</StatNumber>
                     <StatHelpText>
                         <Text>Data of previous version</Text>
-                        
+
                     </StatHelpText>
                 </Stat>
             </StatGroup>

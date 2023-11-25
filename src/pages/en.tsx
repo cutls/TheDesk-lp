@@ -4,7 +4,7 @@ import Page from '../component/Page'
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
-    <Page lang="en" />
+    <Page lang="en" isDefault={!navigator.language.match(/^ja/)} />
   )
 }
 

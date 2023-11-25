@@ -4,10 +4,13 @@ import Page from '../component/Page'
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
-    <Page lang="ja" />
+    <Page lang="ja" isDefault={!!navigator.language.match(/^ja/)} />
   )
 }
 
 export default IndexPage
 
-export const Head: HeadFC = () => <title>TheDesk - Mastodon Client for PC</title>
+export const Head: HeadFC = () => <>
+  <html lang="ja" />
+  <title>TheDesk - Mastodon Client for PC</title>
+</>
