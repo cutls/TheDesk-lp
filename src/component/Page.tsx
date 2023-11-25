@@ -105,9 +105,9 @@ const a: React.FC<IProps> = (props: IProps) => {
                             </a>
                             <Text fontWeight="bold" mt={3}>{t.download}</Text>
                             <ButtonGroup>
-                                <Button as="a" href={winX64.url} colorScheme="teal" w={120}>Deb<Badge colorScheme="whiteAlpha" ml={2}>{s(linuxDeb.size)}</Badge></Button>
-                                <Button as="a" href={winIa32.url} colorScheme="blue" w={120}>Snap<Badge colorScheme="whiteAlpha" ml={2}>{s(linuxSnap.size)}</Badge></Button>
-                                <Button as="a" href={winX64P.url} colorScheme="blue" w={120}>ZIP<Badge colorScheme="whiteAlpha" ml={2}>{s(linuxZip.size)}</Badge></Button>
+                                <Button as="a" href={linuxDeb.url} colorScheme="teal" w={120}>Deb<Badge colorScheme="whiteAlpha" ml={2}>{s(linuxDeb.size)}</Badge></Button>
+                                <Button as="a" href={linuxSnap.url} colorScheme="blue" w={120}>Snap<Badge colorScheme="whiteAlpha" ml={2}>{s(linuxSnap.size)}</Badge></Button>
+                                <Button as="a" href={linuxZip.url} colorScheme="blue" w={120}>ZIP<Badge colorScheme="whiteAlpha" ml={2}>{s(linuxZip.size)}</Badge></Button>
                             </ButtonGroup>
                             <Text fontWeight="bold" mt={3}>{t.other}</Text>
                             <Text>{t.otherText}</Text>
