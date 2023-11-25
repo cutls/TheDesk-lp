@@ -70,7 +70,7 @@ const a: React.FC<IProps> = (props: IProps) => {
             <Heading as="h1" fontSize={40} textAlign="center">TheDesk</Heading>
             <Badge colorScheme={getColorOfCodename(files.version)} textTransform="initial">{files.version} ({files.codename})</Badge>
             <Text mt={1} mb={30} textAlign="center">Mastodon client for PC with myriad features</Text>
-            {!isDefault ?  <Button as="a" href="/en" size="lg" mb={3} colorScheme="orange">Switch to {lang === 'ja' ? 'English' : '日本語'}</Button> : null}
+            {!isDefault ?  <Button as="a" href={lang === 'ja' ? '/en' : '/'} size="lg" mb={3} colorScheme="orange">Switch to {lang === 'ja' ? 'English' : '日本語'}</Button> : null}
             <Box h={450} borderColor="#E2E8F0" borderWidth={1} overflowY="scroll" p={3} mb={10} borderRadius={5}>
                 <Tabs w={600} maxW="calc(100vw - 2rem)">
                     <TabList>
