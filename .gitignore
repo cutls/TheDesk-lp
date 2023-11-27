@@ -3,3 +3,5 @@ node_modules/
 public
 src/gatsby-types.d.ts
 src/meta.ts
+static/ver.json
+static/ver.v2.json

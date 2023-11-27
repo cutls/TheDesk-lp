@@ -4,7 +4,7 @@ const main = async () => {
     try {
         const dataRaw = await axios.get('https://api.github.com/repos/cutls/TheDesk/releases')
         const release = dataRaw.data[0]
-        const { name, tag_name, assets } = release
+        const { name, tag_name, assets, published_at } = release
         const codename = name.match(/\(([A-Za-z]+)\)/)[1]
         const version = tag_name.replace('v', '')
         const ret = {}
@@ -23,6 +23,7 @@ const main = async () => {
         const { name: lastName, tag_name: lastTagName, assets: lastAssets } = lastRelease
         const lastCodename = lastName.match(/\(([A-Za-z]+)\)/)[1]
         const lastVersion = lastTagName.replace('v', '')
+        const date = published_at.split('T')[0]
         let i = 0
         for (const a of lastAssets) {
             i = i + a.download_count
@@ -35,7 +36,48 @@ const main = async () => {
             lastDls: i,
             assets: ret
         }
+        const vNotation = `${version} (${codename})`
+        const legacy = {
+            desk: vNotation,
+            desk_linux: vNotation,
+            desk_mac: vNotation,
+            unique: version,
+            unique_linux: version,
+            unique_mac: version,
+            date,
+            detail: "GitHub\u53c2\u7167",
+            detail_en: "Please visit Github",
+            mac: ret.mac.url,
+            mac_size: ret.mac.size,
+            mac_ct: 0,
+            macarm64: ret.mac.url,
+            macarm64_size: ret.mac.size,
+            macarm64_ct: 0,
+            linuxx64: ret.linuxZip.url,
+            linuxx64_size: ret.linuxZip.size,
+            linuxx64_ct: 0,
+            winia32p: ret.winIa32P.url,
+            winia32p_size: ret.winIa32P.size,
+            winia32p_ct: 0,
+            winia32: ret.winIa32.url,
+            winia32_size: ret.winIa32.size,
+            winia32_ct: 0,
+            winx64: ret.winX64.url,
+            winx64_size: ret.winX64.size,
+            winx64_ct: 0,
+            winx64p: ret.winX64P.url,
+            winx64p_size: ret.winX64P.size,
+            winx64p_ct: 0,
+            linuxsnap: ret.linuxSnap.url,
+            linuxsnap_size: ret.linuxSnap.size,
+            linuxsnap_ct: 0,
+            linuxdeb: ret.linuxDeb.url,
+            linuxdeb_size:  ret.linuxDeb.size,
+            linuxdeb_ct: 0
+        }
         fs.writeFileSync('./src/meta.ts', `export const files = ${JSON.stringify(json)}`)
+        fs.writeFileSync('./static/ver.json', JSON.stringify(legacy))
+        fs.writeFileSync('./static/ver.v2.json', JSON.stringify(json))
     } catch (e) {
 
     }
