@@ -68,7 +68,7 @@ const a: React.FC<IProps> = (props: IProps) => {
         <Container centerContent={true} p={10}>
             <Image src={DeskLogo} w={70} />
             <Heading as="h1" fontSize={40} textAlign="center">TheDesk</Heading>
-            <Badge colorScheme={getColorOfCodename(files.version)} textTransform="initial">{files.version} ({files.codename})</Badge>
+            <Badge colorScheme={getColorOfCodename(files.semanticVersion)} textTransform="initial">{files.semanticVersion} ({files.codename})</Badge>
             <Text mt={1} mb={30} textAlign="center">Mastodon client for PC with myriad features</Text>
             {!isDefault ?  <Button as="a" href={lang === 'ja' ? '/en' : '/'} size="lg" mb={3} colorScheme="orange">Switch to {lang === 'ja' ? 'English' : '日本語'}</Button> : null}
             <Box h={450} borderColor="#E2E8F0" borderWidth={1} overflowY="scroll" p={3} mb={10} borderRadius={5}>
@@ -175,7 +175,7 @@ const a: React.FC<IProps> = (props: IProps) => {
             <Text>(c) 2018 TheDesk</Text>
             <Text fontWeight="bold">Made by Cutls P and contributors with love<Image ml={0.5} w={3} src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/2764.png" display="inline-block" /></Text>
             <Text>Contact: <Link color="teal" href="https://2m.cutls.com/@Cutls" target="_blank" rel="noopener">@Cutls@2m.cutls.com</Link>, e-mail: p@cutls.dev</Text>
-            <Badge mt={3} colorScheme={getColorOfCodename(files.version)} textTransform="initial">{files.version} ({files.codename})</Badge>
+            <Badge mt={3} colorScheme={getColorOfCodename(files.semanticVersion)} textTransform="initial">{files.semanticVersion} ({files.codename})</Badge>
         </Container>
     )
 }

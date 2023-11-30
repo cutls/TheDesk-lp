@@ -12,7 +12,7 @@ const IndexPage: React.FC<PageProps> = () => {
         <Text fontStyle="italic">You're in complete darkness.</Text>
         <Text>アドレスをお確かめください。</Text>
         <Text mt={3}><Link color="teal" href="https://thedesk.top" target="_blank" rel="noopener">TheDesk</Link></Text>
-        <Badge colorScheme={getColorOfCodename(files.version)} textTransform="initial">{files.version} ({files.codename})</Badge>
+        <Badge colorScheme={getColorOfCodename(files.semanticVersion)} textTransform="initial">{files.semanticVersion} ({files.codename})</Badge>
       </Box>
     </Container>
   )

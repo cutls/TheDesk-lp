@@ -29,7 +29,8 @@ const main = async () => {
             i = i + a.download_count
         }
         const json = {
-            version,
+            semanticVersion: version,
+            version: `${version} (${codename})`,
             codename,
             lastCodename,
             lastVersion,
