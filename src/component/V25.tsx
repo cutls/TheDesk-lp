@@ -4,6 +4,7 @@ import DeskLogo from '../images/desk.svg'
 import LP1 from '../images/lp1-new.png'
 import { files } from '../meta'
 import { getColorOfCodename } from '../utils/getColorOfCodename'
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 const { assets } = files
 const { win, linuxDeb, linuxZip, mac } = assets
 const ja = {
@@ -156,6 +157,9 @@ const a: React.FC<IProps> = (props: IProps) => {
                 </Tabs>
             </Box>
             <Heading as="h1" my={3} fontSize={28}>{t.noticeHead}</Heading>
+            <Link href='https://fedistar.net' isExternal mb={5}>
+                Fedistar (© 2023 Akira Fukushima) <ExternalLinkIcon mx='2px' />
+            </Link>
             <Image src={LP1} borderRadius={5} />
             <Heading as="h2" mt={3} fontSize={28}>{t.difference}</Heading>
             <Heading as="h3" mt={3} fontSize={22}>{t.lp1.title}</Heading>
