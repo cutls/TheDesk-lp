@@ -42,7 +42,9 @@ const ja = {
         title: 'TheDeskの機能',
         contents: [
             'Spotify NowPlaying',
-            'Apple Music/iTunes NowPlaying(macOS)']
+            'Apple Music/iTunes NowPlaying(macOS)',
+            'タイムライン読み上げ'
+        ]
     },
     donate: 'ご支援のお願い',
     donateText: 'TheDeskは営利目的ではないため、有料機能や広告は一切ありません。皆様の支援により開発を続けています。'
@@ -83,7 +85,8 @@ const en = {
         title: 'TheDesk features',
         contents: [
             'Spotify NowPlaying',
-            'Apple Music/iTunes NowPlaying(macOS)'
+            'Apple Music/iTunes NowPlaying(macOS)',
+            'Text-to-speech of timeline posts'
         ]
     },
     donate: 'Donation',
