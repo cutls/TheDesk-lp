@@ -1,6 +1,6 @@
 const axios = require('axios')
 const fs = require('fs')
-const main = async () => {
+const mainV24 = async () => {
     try {
         const dataRaw = await axios.get('https://api.github.com/repos/cutls/TheDesk/releases')
         const release = dataRaw.data[0]
@@ -73,14 +73,78 @@ const main = async () => {
             linuxsnap_size: ret.linuxSnap.size,
             linuxsnap_ct: 0,
             linuxdeb: ret.linuxDeb.url,
-            linuxdeb_size:  ret.linuxDeb.size,
+            linuxdeb_size: ret.linuxDeb.size,
             linuxdeb_ct: 0
         }
-        fs.writeFileSync('./src/meta.ts', `export const files = ${JSON.stringify(json)}`)
+        fs.writeFileSync('./src/meta.v24.ts', `export const files = ${JSON.stringify(json)}`)
         fs.writeFileSync('./static/ver.json', JSON.stringify(legacy))
         fs.writeFileSync('./static/ver.v2.json', JSON.stringify(json))
     } catch (e) {
 
     }
 }
-main()
+const mainV25 = async () => {
+    try {
+        const dataRaw = await axios.get('https://api.github.com/repos/cutls/thedesk-next/releases')
+        const release = dataRaw.data[0]
+        const { name, tag_name, assets, published_at } = release
+        const codename = name.match(/\(([A-Za-z]+)\)/)[1]
+        const version = tag_name.replace('v', '')
+        const ret = {}
+        for (const asset of assets) {
+            const { browser_download_url: url, name: assetName, size } = asset
+            if (assetName.match(/TheDesk\.([0-9.]+)\.msi/)) ret.win = { url, size }
+            if (assetName.match(/thedesk-next_([0-9.]+)_amd64\.deb/)) ret.linuxDeb = { url, size }
+            if (assetName.match(/thedesk-next-([0-9.]+)\.zip/)) ret.linuxZip = { url, size }
+            if (assetName.match(/TheDesk-([0-9.]+)-universal\.dmg/)) ret.mac = { url, size }
+        }
+        const lastRelease = dataRaw.data[1]
+        if (!lastRelease) {
+            const dataRaw = await axios.get('https://api.github.com/repos/cutls/TheDesk/releases')
+            const release = dataRaw.data[0]
+            const { name: lastName, tag_name: lastTagName, assets: lastAssets } = release
+            const lastCodename = lastName.match(/\(([A-Za-z]+)\)/)[1]
+            const lastVersion = lastTagName.replace('v', '')
+            let i = 0
+            for (const a of lastAssets) {
+                i = i + a.download_count
+            }
+            const json = {
+                semanticVersion: version,
+                version: `${version} (${codename})`,
+                codename,
+                lastCodename,
+                lastVersion,
+                lastDls: i,
+                assets: ret
+            }
+            fs.writeFileSync('./src/meta.ts', `export const files = ${JSON.stringify(json)}`)
+            fs.writeFileSync('./static/ver.next.json', JSON.stringify(json))
+        } else {
+            const { name: lastName, tag_name: lastTagName, assets: lastAssets } = lastRelease
+            const lastCodename = lastName.match(/\(([A-Za-z]+)\)/)[1]
+            const lastVersion = lastTagName.replace('v', '')
+            let i = 0
+            for (const a of lastAssets) {
+                i = i + a.download_count
+            }
+            const json = {
+                semanticVersion: version,
+                version: `${version} (${codename})`,
+                codename,
+                lastCodename,
+                lastVersion,
+                lastDls: i,
+                assets: ret
+            }
+            fs.writeFileSync('./src/meta.ts', `export const files = ${JSON.stringify(json)}`)
+            fs.writeFileSync('./static/ver.next.json', JSON.stringify(json))
+        }
+
+
+    } catch (e) {
+        console.error(e)
+    }
+}
+mainV24()
+mainV25()

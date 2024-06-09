@@ -1,6 +1,6 @@
 import * as React from "react"
 import type { HeadFC, PageProps } from "gatsby"
-import Page from '../component/V25'
+import Page from '../component/V24'
 
 const IndexPage: React.FC<PageProps> = () => {
     const [isDefault, setIsDefault] = React.useState(true)

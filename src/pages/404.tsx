@@ -1,7 +1,7 @@
 import * as React from "react"
 import type { HeadFC, PageProps } from "gatsby"
 import { Badge, Box, Container, Link, Text } from "@chakra-ui/react"
-import { files } from "../meta"
+import { files } from "../meta.v24"
 import { getColorOfCodename } from "../utils/getColorOfCodename"
 
 const IndexPage: React.FC<PageProps> = () => {

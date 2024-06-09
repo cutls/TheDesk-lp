@@ -1,52 +1,89 @@
-import { Badge, Box, Button, ButtonGroup, Code, Container, Heading, Image, Link, Stat, StatArrow, StatGroup, StatHelpText, StatLabel, StatNumber, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Badge, Box, Button, ButtonGroup, Code, Container, Heading, Image, Link, Stat, StatArrow, StatGroup, StatHelpText, StatLabel, StatNumber, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
 import React from 'react'
 import DeskLogo from '../images/desk.svg'
-import LP1 from '../images/lp1.png'
-import LP2 from '../images/lp2.png'
+import LP1 from '../images/lp1-new.png'
 import { files } from '../meta'
 import { getColorOfCodename } from '../utils/getColorOfCodename'
 const { assets } = files
-const { winIa32, winIa32P, winX64, winX64P, linuxDeb, linuxSnap, linuxZip, mac } = assets
+const { win, linuxDeb, linuxZip, mac } = assets
 const ja = {
+    olderV24: '過去バージョン(v24以前)はこちら',
+    olderV24Notice: 'v24以前とは互換性がありません。v25以降をインストールすると以前の設定は全て削除されます。ご了承ください。',
     installer: 'インストーラー',
     portable: 'ポータブル',
     download: 'ダウンロード',
     run: '実行',
     other: 'その他',
-    winOtherText: 'ARM版、過去バージョンなど',
     otherText: '過去バージョン',
     winNotice: 'Windows SmartScreenによってインストールができない場合がありますが、「詳細情報」を押すと実行できます。',
     macNotice: 'Intel/Apple Silicon両対応。公証されており、セキュリティ設定の変更は必要ありません。',
     webNotice: 'Chrome, Firefoxで最新版が利用いただけます。一部機能はご利用いただけません。',
+    noticeHead: 'TheDeskはFedistarの改造版です。',
+    difference: 'Fedistarとの違い',
     lp1: {
-        title: '縦に横に無限に',
-        desc: 'アカウントの壁を超えて、何個でも。'
+        title: 'TheDeskのUI（TheDesk v24 ライクなUI）',
+        contents: [
+            'フローティング投稿ボックス',
+            'カラムやアカウントごとに色分けできます。'
+        ],
     },
     lp2: {
-        title: '圧倒的な設定項目数',
-        desc: '使い込むほどに、あなたのクライアントになる。'
+        title: 'TheDeskの設定',
+        contents: [
+            'タイムラインに表示する時間の形式を変更可能(絶対/相対時間)',
+            'アイコンのアニメーション有無の設定',
+            '長い投稿の自動折りたたみと省略表示',
+            '投稿後に投稿ボックスを開いたままにするかどうかの設定',
+            'セカンダリー投稿ボタンで投稿の表示を簡単に変更可能'
+        ]
+    },
+    lp3: {
+        title: 'TheDeskの機能',
+        contents: [
+            'Spotify NowPlaying',
+            'Apple Music/iTunes NowPlaying(macOS)']
     },
     donate: 'ご支援のお願い',
     donateText: 'TheDeskは営利目的ではないため、有料機能や広告は一切ありません。皆様の支援により開発を続けています。'
 }
+
 const en = {
+    olderV24: 'Older than v24',
+    olderV24Notice: 'It is not compatible with v24 and earlier; all previous settings will be deleted when v25 or later is installed. Please be aware of this.',
     installer: 'Installer',
     portable: 'Portable',
     download: 'Download',
     run: 'Run',
     other: 'Others',
-    winOtherText: 'for ARM(arm64), older version',
     otherText: 'Older version',
     winNotice: 'Installation may not be possible due to Windows SmartScreen, but you can run it by pressing "More info".',
     macNotice: 'for both Intel & Apple Silicon. It is notarized and does not require any changes to your security settings.',
     webNotice: 'The latest version is available for Chrome and Firefox. Some features are not available.',
+    noticeHead: 'TheDesk is based on Fedistar.',
+    difference: "What's different from Fedistar?",
     lp1: {
-        title: 'Infinitely vertically and horizontally',
-        desc: 'As many as you want, beyond the walls of your account.'
+        title: 'TheDesk UI(like TheDesk ~v24)',
+        contents: [
+            'Floating post box',
+            'It can be color-coded by column or account'
+        ],
     },
     lp2: {
-        title: 'Countless preferences',
-        desc: 'The more you use it, the more it becomes your client.'
+        title: ' TheDesk config',
+        contents: [
+            'The format of the time displayed on the timeline can be changed(absolute/relative)',
+            'Allow icons to animate or not',
+            'Automatic folding and abbreviated display of long posts',
+            'Setting whether to leave the post box open after posting',
+            'Secondary post button to change visibility of post easily'
+        ],
+    },
+    lp3: {
+        title: 'TheDesk features',
+        contents: [
+            'Spotify NowPlaying',
+            'Apple Music/iTunes NowPlaying(macOS)'
+        ]
     },
     donate: 'Donation',
     donateText: 'TheDesk is not for profit, so there are no paid features or advertisements. We continue to develop with your support.'
@@ -69,83 +106,64 @@ const a: React.FC<IProps> = (props: IProps) => {
             <Image src={DeskLogo} w={70} />
             <Heading as="h1" fontSize={40} textAlign="center">TheDesk</Heading>
             <Badge colorScheme={getColorOfCodename(files.semanticVersion)} textTransform="initial">{files.semanticVersion} ({files.codename})</Badge>
-            <Text mt={1} mb={30} textAlign="center">Mastodon client for PC with myriad features</Text>
-            {!isDefault ?  <Button as="a" href={lang === 'ja' ? '/en' : '/'} size="lg" mb={3} colorScheme="orange">Switch to {lang === 'ja' ? 'English' : '日本語'}</Button> : null}
+            <Text mt={1} mb={30} textAlign="center">Mastodon client for PC</Text>
+            {!isDefault ? <Button as="a" href={lang === 'ja' ? '/en' : '/'} size="lg" mb={3} colorScheme="orange">Switch to {lang === 'ja' ? 'English' : '日本語'}</Button> : null}
+            <Alert status="warning" my={10}>
+                <AlertIcon />
+                <Box>
+                    <AlertTitle>{t.olderV24}</AlertTitle>
+                    <AlertDescription>{t.olderV24Notice}</AlertDescription>
+                </Box>
+                <Button colorScheme="orange" as="a" href={lang === 'ja' ? '/v24' : '/v24.en'}>v24</Button>
+            </Alert>
             <Box h={450} borderColor="#E2E8F0" borderWidth={1} overflowY="scroll" p={3} mb={10} borderRadius={5}>
                 <Tabs w={600} maxW="calc(100vw - 2rem)">
                     <TabList>
                         <Tab>Windows</Tab>
                         <Tab>Linux</Tab>
                         <Tab>macOS</Tab>
-                        <Tab>Web</Tab>
                     </TabList>
                     <TabPanels>
                         <TabPanel>
                             <Text>{t.winNotice}</Text>
-                            <Text fontWeight="bold">{t.installer}</Text>
+                            <Text fontWeight="bold">{t.installer}(msi)</Text>
                             <ButtonGroup>
-                                <Button as="a" href={winX64.url} colorScheme="teal" w={120}>64bit<Badge colorScheme="whiteAlpha" ml={2}>{s(winX64.size)}</Badge></Button>
-                                <Button as="a" href={winIa32.url} colorScheme="blue" w={120}>32bit<Badge colorScheme="whiteAlpha" ml={2}>{s(winIa32.size)}</Badge></Button>
-                            </ButtonGroup>
-                            <Text fontWeight="bold" mt={3}>{t.portable}</Text>
-                            <ButtonGroup>
-                                <Button as="a" href={winX64P.url} colorScheme="blue" w={120}>64bit<Badge colorScheme="whiteAlpha" ml={2}>{s(winX64P.size)}</Badge></Button>
-                                <Button as="a" href={winIa32P.url} colorScheme="blue" w={120}>32bit<Badge colorScheme="whiteAlpha" ml={2}>{s(winIa32P.size)}</Badge></Button>
+                                <Button as="a" href={win.url} colorScheme="teal" w={120}>64bit<Badge colorScheme="whiteAlpha" ml={2}>{s(win.size)}</Badge></Button>
                             </ButtonGroup>
                             <Text fontWeight="bold" mt={3}>{t.other}</Text>
-                            <Text>{t.winOtherText}</Text>
-                            <Button as="a" href="https://github.com/cutls/TheDesk/releases" target="_blank" rel="noopener" mb={3}>GitHub</Button>
-                            <a href="https://github.com/cutls/TheDesk/actions/workflows/build.yml" target="_blank" rel="noopener">
-                                <Image src="https://github.com/cutls/TheDesk/actions/workflows/build.yml/badge.svg" alt="Windows build" />
-                            </a>
+                            <Text>{t.otherText}</Text>
+                            <Button as="a" href="https://github.com/cutls/thedesk-next/releases" target="_blank" rel="noopener" mb={3}>GitHub</Button>
                         </TabPanel>
                         <TabPanel>
-                            <a href="https://snapcraft.io/thedesk" target="_blank" rel="noopener">
-                                <Image src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" />
-                            </a>
                             <Text fontWeight="bold" mt={3}>{t.download}</Text>
                             <ButtonGroup>
                                 <Button as="a" href={linuxDeb.url} colorScheme="teal" w={120}>Deb<Badge colorScheme="whiteAlpha" ml={2}>{s(linuxDeb.size)}</Badge></Button>
-                                <Button as="a" href={linuxSnap.url} colorScheme="blue" w={120}>Snap<Badge colorScheme="whiteAlpha" ml={2}>{s(linuxSnap.size)}</Badge></Button>
                                 <Button as="a" href={linuxZip.url} colorScheme="blue" w={120}>ZIP<Badge colorScheme="whiteAlpha" ml={2}>{s(linuxZip.size)}</Badge></Button>
                             </ButtonGroup>
                             <Text fontWeight="bold" mt={3}>{t.other}</Text>
                             <Text>{t.otherText}</Text>
-                            <Button as="a" href="https://github.com/cutls/TheDesk/releases" target="_blank" rel="noopener" mb={3}>GitHub</Button>
-                            <a href="https://github.com/cutls/TheDesk/actions/workflows/build-linux.yml" target="_blank" rel="noopener">
-                                <Image src="https://github.com/cutls/TheDesk/actions/workflows/build-linux.yml/badge.svg" alt="Linux build" />
-                            </a>
+                            <Button as="a" href="https://github.com/cutls/thedesk-next/releases" target="_blank" rel="noopener" mb={3}>GitHub</Button>
                         </TabPanel>
                         <TabPanel>
-                            <Text fontWeight="bold">Homebrew</Text>
-                            <p><Code>brew cask install thedesk</Code></p>
                             <Text fontWeight="bold" mt={3}>{t.download}</Text>
                             <Button as="a" href={mac.url} colorScheme="teal">Universal<Badge colorScheme="whiteAlpha" ml={2}>{s(mac.size)}</Badge></Button>
                             <Text>{t.macNotice}</Text>
                             <Text fontWeight="bold">{t.other}</Text>
                             <Text>{t.otherText}</Text>
-                            <Button as="a" href="https://github.com/cutls/TheDesk/releases" target="_blank" rel="noopener" mb={3}>GitHub</Button>
-                            <a href="https://github.com/cutls/TheDesk/actions/workflows/build-macos.yml" target="_blank" rel="noopener">
-                                <Image src="https://github.com/cutls/TheDesk/actions/workflows/build-macos.yml/badge.svg" alt="macOS build" />
-                            </a>
-                        </TabPanel>
-                        <TabPanel>
-                            <Text>{t.webNotice}</Text>
-                            <Button as="a" href="https://app.thedesk.top" target="_blank" rel="noopener" colorScheme="teal" mb={3}>{t.run}</Button>
-                            <a href="https://app.netlify.com/sites/thedesk/deploys" target="_blank" rel="noopener">
-                                <Image src="https://api.netlify.com/api/v1/badges/6916503b-2882-43f7-9681-ab814e6d28f9/deploy-status" alt="PWA build" />
-                            </a>
+                            <Button as="a" href="https://github.com/cutls/thedesk-next/releases" target="_blank" rel="noopener" mb={3}>GitHub</Button>
                         </TabPanel>
                     </TabPanels>
                 </Tabs>
             </Box>
+            <Heading as="h1" my={3} fontSize={28}>{t.noticeHead}</Heading>
             <Image src={LP1} borderRadius={5} />
-            <Heading as="h2" mt={3} fontSize={22}>{t.lp1.title}</Heading>
-            <Text>{t.lp1.desc}</Text>
-            <Box h={20} />
-            <Image src={LP2} borderRadius={5} />
-            <Heading as="h2" mt={3} fontSize={22}>{t.lp2.title}</Heading>
-            <Text>{t.lp2.desc}</Text>
+            <Heading as="h2" mt={3} fontSize={28}>{t.difference}</Heading>
+            <Heading as="h3" mt={3} fontSize={22}>{t.lp1.title}</Heading>
+            {t.lp1.contents.map((content, i) => <Text key={i}>{content}</Text>)}
+            <Heading as="h3" mt={3} fontSize={22}>{t.lp2.title}</Heading>
+            {t.lp2.contents.map((content, i) => <Text key={i}>{content}</Text>)}
+            <Heading as="h3" mt={3} fontSize={22}>{t.lp3.title}</Heading>
+            {t.lp3.contents.map((content, i) => <Text key={i}>{content}</Text>)}
             <Box h={20} />
             <Heading as="h2" mt={3} fontSize={22}>{t.donate}</Heading>
             <Text>{t.donateText}</Text>
@@ -160,7 +178,7 @@ const a: React.FC<IProps> = (props: IProps) => {
                     <StatLabel>LICENSE</StatLabel>
                     <StatNumber>GPL-3.0</StatNumber>
                     <StatHelpText>
-                        <Link color="teal" href="https://github.com/cutls/TheDesk" target="_blank" rel="noopener">Source code</Link>
+                        <Link color="teal" href="https://github.com/cutls/thedesk-next" target="_blank" rel="noopener">Source code</Link>
                     </StatHelpText>
                 </Stat>
                 <Stat>
@@ -174,7 +192,7 @@ const a: React.FC<IProps> = (props: IProps) => {
             </StatGroup>
             <Text>(c) 2018 TheDesk</Text>
             <Text fontWeight="bold">Made by Cutls P and contributors with love<Image ml={0.5} w={3} src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/2764.png" display="inline-block" /></Text>
-            <Text>Contact: <Link color="teal" href="https://2m.cutls.com/@Cutls" target="_blank" rel="noopener">@Cutls@2m.cutls.com</Link>, e-mail: p@cutls.dev</Text>
+            <Text>Contact: <Link color="teal" href="https://kids.0px.io/@Cutls" target="_blank" rel="noopener">@cutls@kids.0px.io</Link>, e-mail: p@cutls.dev</Text>
             <Badge mt={3} colorScheme={getColorOfCodename(files.semanticVersion)} textTransform="initial">{files.semanticVersion} ({files.codename})</Badge>
         </Container>
     )
