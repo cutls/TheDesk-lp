@@ -19,7 +19,7 @@ const ja = {
     winNotice: 'Windows SmartScreenによってインストールができない場合がありますが、「詳細情報」を押すと実行できます。',
     macNotice: 'Intel/Apple Silicon両対応。公証されており、セキュリティ設定の変更は必要ありません。',
     webNotice: 'Chrome, Firefoxで最新版が利用いただけます。一部機能はご利用いただけません。',
-    noticeHead: 'TheDeskはFedistarの改造版です。',
+    noticeHead: 'TheDesk(v25~)はFedistarの改造版です。',
     difference: 'Fedistarとの違い',
     lp1: {
         title: 'TheDeskのUI（TheDesk v24 ライクなUI）',
@@ -62,7 +62,7 @@ const en = {
     winNotice: 'Installation may not be possible due to Windows SmartScreen, but you can run it by pressing "More info".',
     macNotice: 'for both Intel & Apple Silicon. It is notarized and does not require any changes to your security settings.',
     webNotice: 'The latest version is available for Chrome and Firefox. Some features are not available.',
-    noticeHead: 'TheDesk is based on Fedistar.',
+    noticeHead: 'TheDesk(v25~) is based on Fedistar.',
     difference: "What's different from Fedistar?",
     lp1: {
         title: 'TheDesk UI(like TheDesk ~v24)',
