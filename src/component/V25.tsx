@@ -46,6 +46,12 @@ const ja = {
             'タイムライン読み上げ'
         ]
     },
+    others: {
+        title: 'その他',
+        contents: [
+            'Misskeyの部分的サポート'
+        ]
+    },
     donate: 'ご支援のお願い',
     donateText: 'TheDeskは営利目的ではないため、有料機能や広告は一切ありません。皆様の支援により開発を続けています。'
 }
@@ -89,6 +95,12 @@ const en = {
             'Text-to-speech of timeline posts'
         ]
     },
+    others: {
+        title: 'Others',
+        contents: [
+            'Partial support for Misskey'
+        ]
+    },
     donate: 'Donation',
     donateText: 'TheDesk is not for profit, so there are no paid features or advertisements. We continue to develop with your support.'
 }
@@ -110,7 +122,7 @@ const a: React.FC<IProps> = (props: IProps) => {
             <Image src={DeskLogo} w={70} />
             <Heading as="h1" fontSize={40} textAlign="center">TheDesk</Heading>
             <Badge colorScheme={getColorOfCodename(files.semanticVersion)} textTransform="initial">{files.semanticVersion} ({files.codename})</Badge>
-            <Text mt={1} mb={30} textAlign="center">Mastodon client for PC</Text>
+            <Text mt={1} mb={30} textAlign="center">Mastodon (and Misskey) client for PC</Text>
             {!isDefault ? <Button as="a" href={lang === 'ja' ? '/en' : '/'} size="lg" mb={3} colorScheme="orange">Switch to {lang === 'ja' ? 'English' : '日本語'}</Button> : null}
             <Alert status="warning" my={10}>
                 <AlertIcon />
@@ -171,6 +183,8 @@ const a: React.FC<IProps> = (props: IProps) => {
             {t.lp2.contents.map((content, i) => <Text key={i}>{content}</Text>)}
             <Heading as="h3" mt={3} fontSize={22}>{t.lp3.title}</Heading>
             {t.lp3.contents.map((content, i) => <Text key={i}>{content}</Text>)}
+            <Heading as="h3" mt={3} fontSize={22}>{t.others.title}</Heading>
+            {t.others.contents.map((content, i) => <Text key={i}>{content}</Text>)}
             <Box h={20} />
             <Heading as="h2" mt={3} fontSize={22}>{t.donate}</Heading>
             <Text>{t.donateText}</Text>
