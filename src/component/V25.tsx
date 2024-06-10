@@ -9,7 +9,7 @@ const { assets } = files
 const { win, linuxDeb, linuxZip, mac } = assets
 const ja = {
     olderV24: '過去バージョン(v24以前)はこちら',
-    olderV24Notice: 'v24以前とは互換性がありません。v25以降をインストールする前にv24を最新にして指示に従ってください。',
+    olderV24Notice: 'v24以前とは互換性がありません。v25以降をインストールすると以前の設定は全て削除されます。ご了承ください。',
     installer: 'インストーラー',
     portable: 'ポータブル',
     download: 'ダウンロード',
@@ -52,7 +52,7 @@ const ja = {
 
 const en = {
     olderV24: 'Older than v24',
-    olderV24Notice: 'It is not compatible with v24 and earlier; before upgrading to v25, please the latest version of TheDesk v24 and follow instructions.',
+    olderV24Notice: 'It is not compatible with v24 and earlier; all previous settings will be deleted when v25 or later is installed.',
     installer: 'Installer',
     portable: 'Portable',
     download: 'Download',
