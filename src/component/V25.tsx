@@ -118,7 +118,7 @@ const a: React.FC<IProps> = (props: IProps) => {
     const { lang, isDefault } = props
     const t = i18n[lang]
     return (
-        <Container centerContent={true} p={10}>
+        <Container centerContent={true} p={10} maxW={650}>
             <Image src={DeskLogo} w={70} />
             <Heading as="h1" fontSize={40} textAlign="center">TheDesk</Heading>
             <Badge colorScheme={getColorOfCodename(files.semanticVersion)} textTransform="initial">{files.semanticVersion} ({files.codename})</Badge>
