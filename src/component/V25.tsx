@@ -25,7 +25,8 @@ const ja = {
         title: 'TheDeskのUI（TheDesk v24 ライクなUI）',
         contents: [
             'フローティング投稿ボックス',
-            'カラムやアカウントごとに色分けできます。'
+            'カラムやアカウントごとに色分けできます。',
+            '柔軟かつ直感的にに横幅をリサイズできるタイムライン'
         ],
     },
     lp2: {
@@ -43,7 +44,8 @@ const ja = {
         contents: [
             'Spotify NowPlaying',
             'Apple Music/iTunes NowPlaying(macOS)',
-            'タイムライン読み上げ'
+            'タイムライン読み上げ',
+            'メディアだけのタイムライン'
         ]
     },
     others: {
@@ -74,7 +76,8 @@ const en = {
         title: 'TheDesk UI(like TheDesk ~v24)',
         contents: [
             'Floating post box',
-            'It can be color-coded by column or account'
+            'It can be color-coded by column or account',
+            'Flexible and intuitive width resizing timeline'
         ],
     },
     lp2: {
@@ -92,7 +95,8 @@ const en = {
         contents: [
             'Spotify NowPlaying',
             'Apple Music/iTunes NowPlaying(macOS)',
-            'Text-to-speech of timeline posts'
+            'Text-to-speech of timeline posts',
+            'Media only timeline'
         ]
     },
     others: {
