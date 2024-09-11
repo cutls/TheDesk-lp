@@ -53,7 +53,7 @@ const ja = {
 	difference: 'Fedistarとの違い',
 	lp1: {
 		title: 'TheDeskのUI（TheDesk v24 ライクなUI）',
-		contents: ['フローティング投稿ボックス', 'カラムやアカウントごとに色分けできます。', '柔軟かつ直感的にに横幅をリサイズできるタイムライン'],
+		contents: ['フローティング投稿ボックス', 'カラムやアカウントごとに色分けできます。', '縦にも横にもタイムラインを並べられる', '柔軟かつ直感的にタイムラインの縦横の長さを変更'],
 	},
 	lp2: {
 		title: 'TheDeskの設定',
@@ -93,7 +93,7 @@ const en = {
 	difference: "What's different from Fedistar?",
 	lp1: {
 		title: 'TheDesk UI(like TheDesk ~v24)',
-		contents: ['Floating post box', 'It can be color-coded by column or account', 'Flexible and intuitive width resizing timeline'],
+		contents: ['Floating post box', 'It can be color-coded by column or account', 'Timelines than can be stacked vertically and horizontally', 'Flexible and intuitive width resizing timeline'],
 	},
 	lp2: {
 		title: ' TheDesk config',
