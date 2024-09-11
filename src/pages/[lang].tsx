@@ -129,7 +129,8 @@ const s = (size: number) => `${Math.floor((size / 1024 / 1024) * 10) / 10}MB`
 export default function Home({ t, lang }: IProps) {
 	const [isDefault, setIsDefault] = useState(true)
 	useEffect(() => {
-		setIsDefault(!!navigator.language.match(/^ja/))
+		const isJa = !!navigator.language.match(/^ja/)
+		setIsDefault(lang === 'ja' ? isJa : !isJa)
 	}, [])
 	return (
 		<html lang={lang}>

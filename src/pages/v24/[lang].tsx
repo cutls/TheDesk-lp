@@ -94,7 +94,8 @@ const s = (size: number) => `${Math.floor((size / 1024 / 1024) * 10) / 10}MB`
 export default function Home(props: IProps) {
 	const [isDefault, setIsDefault] = useState(true)
 	useEffect(() => {
-		setIsDefault(!!navigator.language.match(/^ja/))
+		const isJa = !!navigator.language.match(/^ja/)
+		setIsDefault(lang === 'ja' ? isJa : !isJa)
 	}, [])
 	const { lang } = props
 	const t = i18n[lang]
