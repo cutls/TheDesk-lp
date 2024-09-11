@@ -1,0 +1,6 @@
+{
+    "redirects": [
+      { "source": "/", "destination": "/ja", "permanent": true },
+      { "source": "/v24", "destination": "/v24/ja", "permanent": true }
+    ]
+  }
