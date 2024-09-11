@@ -7,26 +7,27 @@
     "postinstall": "node createMeta.js",
     "dev": "next dev",
     "build": "node createMeta.js && next build",
-    "start": "next start",
+    "start": "serve out",
     "lint:fix": "npx @biomejs/biome check --write ./src"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
-    "@chakra-ui/next-js": "^2.2.0",
-    "@chakra-ui/react": "^2.8.2",
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
+    "@chakra-ui/next-js": "^2.1.5",
+    "@chakra-ui/provider": "^2.4.2",
+    "@chakra-ui/react": "^2.8.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "axios": "^1.7.7",
-    "framer-motion": "^11.5.4",
-    "next": "14.2.9",
-    "react": "^18",
-    "react-dom": "^18"
+    "framer-motion": "^10.16.2",
+    "next": "13.4.19",
+    "react": "18.2.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "serve": "^14.2.3",
     "typescript": "^5"
   }
 }

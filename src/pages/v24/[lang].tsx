@@ -99,9 +99,8 @@ export default function Home(props: IProps) {
 	const { lang } = props
 	const t = i18n[lang]
 	return (
-		<>
+		<html lang={lang}>
 			<Head>
-				<html lang="ja" />
 				<title>TheDesk</title>
 				<meta name="description" content="TheDesk - Mastodon client for PC" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -318,7 +317,7 @@ export default function Home(props: IProps) {
 					{files.semanticVersion} ({files.codename})
 				</Badge>
 			</Container>
-		</>
+		</html>
 	)
 }
 export async function getStaticPaths() {

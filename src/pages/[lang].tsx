@@ -121,21 +121,19 @@ const i18n = {
 	en,
 }
 interface IProps {
+	t: typeof ja
 	lang: 'ja' | 'en'
 }
 const s = (size: number) => `${Math.floor((size / 1024 / 1024) * 10) / 10}MB`
 
-export default function Home(props: IProps) {
+export default function Home({ t, lang }: IProps) {
 	const [isDefault, setIsDefault] = useState(true)
 	useEffect(() => {
 		setIsDefault(!!navigator.language.match(/^ja/))
 	}, [])
-	const { lang } = props
-	const t = i18n[lang]
 	return (
-		<>
+		<html lang={lang}>
 			<Head>
-				<html lang="ja" />
 				<title>TheDesk</title>
 				<meta name="description" content="TheDesk - Mastodon client for PC" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -344,17 +342,18 @@ export default function Home(props: IProps) {
 					{files.semanticVersion} ({files.codename})
 				</Badge>
 			</Container>
-		</>
+		</html>
 	)
 }
 export async function getStaticPaths() {
 	return { paths: [{ params: { lang: 'ja' } }, { params: { lang: 'en' } }], fallback: false }
 }
 export async function getStaticProps(context: GetStaticPropsContext) {
-	const lang = context.params?.lang
+	const lang = context.params?.lang?.toString() as 'ja' | 'en' || 'en'
 	return {
 		props: {
 			lang,
+			t: i18n[lang]
 		},
 	}
 }
