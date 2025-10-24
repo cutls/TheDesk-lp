@@ -40,6 +40,10 @@ const { win, linuxDeb, linuxZip, mac } = assets
 const ja = {
 	olderV24: '過去バージョン(v24以前)はこちら',
 	olderV24Notice: 'v24以前とは互換性がありません。v25以降をインストールすると以前の設定は全て削除されます。ご了承ください。',
+	migrate: {
+		v25_1_0: 'v25.1.0への移行について',
+		v25_1_0__desc: 'v25.1.0ではv25.0.18以前のデータは自動では引き継がれません。起動時に表示される「Migrate」をクリックすることでデータを引き継げます。',
+	},
 	installer: 'インストーラー',
 	portable: 'ポータブル',
 	download: 'ダウンロード',
@@ -81,6 +85,10 @@ const en = {
 	olderV24: 'Older than v24',
 	olderV24Notice: 'It is not compatible with v24 and earlier; all previous settings will be deleted when v25 or later is installed.',
 	installer: 'Installer',
+	migrate: {
+		v25_1_0: 'About migration to v25.1.0',
+		v25_1_0__desc: 'In v25.1.0, data from v25.0.18 and earlier will not be automatically carried over. You can carry over the data by clicking "Migrate" displayed at startup.',
+	},
 	portable: 'Portable',
 	download: 'Download',
 	run: 'Run',
@@ -156,7 +164,7 @@ export default function Home({ t, lang }: IProps) {
 						Switch to {lang === 'ja' ? 'English' : '日本語'}
 					</Button>
 				) : null}
-				<Alert status="warning" my={10}>
+				<Alert status="warning" mt={10}>
 					<AlertIcon />
 					<Box>
 						<AlertTitle>{t.olderV24}</AlertTitle>
@@ -165,6 +173,13 @@ export default function Home({ t, lang }: IProps) {
 					<Button colorScheme="orange" as="a" href={lang === 'ja' ? '/v24/ja' : '/v24/en'}>
 						v24
 					</Button>
+				</Alert>
+				<Alert status="warning" my={10}>
+					<AlertIcon />
+					<Box>
+						<AlertTitle>{t.migrate.v25_1_0}</AlertTitle>
+						<AlertDescription>{t.migrate.v25_1_0__desc}</AlertDescription>
+					</Box>
 				</Alert>
 				<Box h={450} borderColor="#E2E8F0" borderWidth={1} overflowY="scroll" p={3} mb={10} borderRadius={5}>
 					<Tabs w={600} maxW="calc(100vw - 2rem)">
