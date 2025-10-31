@@ -26,15 +26,18 @@ import {
 	Text,
 } from '@chakra-ui/react'
 import type React from 'react'
+
 const DeskLogo = '/desk.svg'
 const LP1 = '/lp1.png'
 const LP2 = '/lp2.png'
+
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import type { GetStaticPropsContext } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { files } from '../../meta.v24'
 import { getColorOfCodename } from '../../utils/getColorOfCodename'
+
 const { assets } = files
 const { winIa32, winIa32P, winX64, winX64P, linuxDeb, linuxSnap, linuxZip, mac } = assets
 const ja = {

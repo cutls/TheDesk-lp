@@ -28,13 +28,16 @@ import {
 } from '@chakra-ui/react'
 import Head from 'next/head'
 import type React from 'react'
+
 const DeskLogo = '/desk.svg'
 const LP1 = '/lp1-new.png'
+
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import type { GetStaticPropsContext } from 'next'
 import { useEffect, useState } from 'react'
 import { files } from '../meta'
 import { getColorOfCodename } from '../utils/getColorOfCodename'
+
 const { assets } = files
 const { win, linuxDeb, linuxZip, mac } = assets
 const ja = {
@@ -52,7 +55,7 @@ const ja = {
 	otherText: '過去バージョン',
 	winNotice: 'Windows SmartScreenによってインストールができない場合がありますが、「詳細情報」を押すと実行できます。',
 	macNotice: 'Intel/Apple Silicon両対応。公証されており、セキュリティ設定の変更は必要ありません。',
-	webNotice: 'Chrome, Firefoxで最新版が利用いただけます。一部機能はご利用いただけません。',
+	webNotice: 'Chrome, Firefoxで最新版(mainブランチ)が利用いただけます。一部機能はご利用いただけません。',
 	noticeHead: 'TheDesk(v25~)はFedistarの改造版です。',
 	difference: 'Fedistarとの違い',
 	lp1: {
@@ -96,7 +99,7 @@ const en = {
 	otherText: 'Older version',
 	winNotice: 'Installation may not be possible due to Windows SmartScreen, but you can run it by pressing "More info".',
 	macNotice: 'for both Intel & Apple Silicon. It is notarized and does not require any changes to your security settings.',
-	webNotice: 'The latest version is available for Chrome and Firefox. Some features are not available.',
+	webNotice: 'The latest(main branch) version is available for Chrome and Firefox. Some features are not available.',
 	noticeHead: 'TheDesk(v25~) is based on Fedistar.',
 	difference: "What's different from Fedistar?",
 	lp1: {
@@ -187,7 +190,7 @@ export default function Home({ t, lang }: IProps) {
 							<Tab>Windows</Tab>
 							<Tab>Linux</Tab>
 							<Tab>macOS</Tab>
-							<Tab isDisabled>Web</Tab>
+							<Tab>Web</Tab>
 						</TabList>
 						<TabPanels>
 							<TabPanel>
@@ -261,6 +264,12 @@ export default function Home({ t, lang }: IProps) {
 								<Text>{t.otherText}</Text>
 								<Button as="a" href="https://github.com/cutls/thedesk-next/releases" target="_blank" rel="noopener" mb={3}>
 									GitHub
+								</Button>
+							</TabPanel>
+							<TabPanel>
+								<Text>{t.webNotice}</Text>
+								<Button as="a" href="https://v25.thedesk.top" target="_blank" rel="noopener" colorScheme="teal" mb={3}>
+									{t.run}
 								</Button>
 							</TabPanel>
 						</TabPanels>
@@ -365,11 +374,11 @@ export async function getStaticPaths() {
 	return { paths: [{ params: { lang: 'ja' } }, { params: { lang: 'en' } }], fallback: false }
 }
 export async function getStaticProps(context: GetStaticPropsContext) {
-	const lang = context.params?.lang?.toString() as 'ja' | 'en' || 'en'
+	const lang = (context.params?.lang?.toString() as 'ja' | 'en') || 'en'
 	return {
 		props: {
 			lang,
-			t: i18n[lang]
+			t: i18n[lang],
 		},
 	}
 }
