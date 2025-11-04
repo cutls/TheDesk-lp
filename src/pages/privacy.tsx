@@ -1,8 +1,6 @@
-import { Badge, Box, Container, Link, Text } from '@chakra-ui/react'
+import { Box, Container, Text } from '@chakra-ui/react'
 import Head from 'next/head'
 import * as React from 'react'
-import { files } from '../meta'
-import { getColorOfCodename } from '../utils/getColorOfCodename'
 
 export default function Home() {
 	return (

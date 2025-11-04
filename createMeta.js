@@ -84,7 +84,8 @@ const mainV24 = async () => {
 const mainV25 = async () => {
 	try {
 		const dataRaw = await axios.get('https://api.github.com/repos/cutls/thedesk-next/releases')
-		const release = dataRaw.data[0]
+		const released = dataRaw.data.filter((r) => !r.prerelease && r.tag_name.startsWith('v'))
+		const release = released[0]
 		const { name, tag_name, assets, published_at } = release
 		const codename = name.match(/\(([A-Za-z]+)\)/)[1]
 		const version = tag_name.replace('v', '')
@@ -96,7 +97,7 @@ const mainV25 = async () => {
 			if (assetName.match(/thedesk-next-([0-9.]+)\.zip/)) ret.linuxZip = { url, size }
 			if (assetName.match(/TheDesk-([0-9.]+)-universal\.dmg/)) ret.mac = { url, size }
 		}
-		const lastRelease = dataRaw.data[1]
+		const lastRelease = released[1]
 		if (!lastRelease) {
 			const dataRaw = await axios.get('https://api.github.com/repos/cutls/TheDesk/releases')
 			const release = dataRaw.data[0]
@@ -138,6 +139,21 @@ const mainV25 = async () => {
 			fs.writeFileSync('./src/meta.ts', `export const files = ${JSON.stringify(json)}`)
 			fs.writeFileSync('./public/ver.next.json', JSON.stringify(json))
 		}
+		const prereleased = dataRaw.data.filter((r) => r.prerelease && r.tag_name.startsWith('fe'))
+		const fe = {}
+		for (const pre of prereleased) {
+			const verUrl = `https://raw.githubusercontent.com/cutls/thedesk-next/refs/tags/${pre.tag_name}/package.json`
+			const verData = await axios.get(verUrl)
+			const preVersion = verData.data.version
+			if (!fe[preVersion]) fe[preVersion] = []
+			fe[preVersion].push({
+				name: pre.name,
+				createdAtUnix: new Date(pre.published_at).getTime(),
+				size: pre.assets[0].size,
+				url: pre.assets[0].browser_download_url,
+			})
+		}
+		fs.writeFileSync('./public/fe.next.json', JSON.stringify(fe))
 	} catch (e) {
 		console.error(e)
 	}

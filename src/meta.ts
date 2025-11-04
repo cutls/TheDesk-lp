@@ -1,14 +1,1 @@
-export const files = {
-	semanticVersion: '25.1.3',
-	version: '25.1.3 (Aiko)',
-	codename: 'Aiko',
-	lastCodename: 'Aiko',
-	lastVersion: '25.1.2',
-	lastDls: 12,
-	assets: {
-		mac: { url: 'https://github.com/cutls/thedesk-next/releases/download/v25.1.3/TheDesk-25.1.3-universal.dmg', size: 294584369 },
-		linuxZip: { url: 'https://github.com/cutls/thedesk-next/releases/download/v25.1.3/thedesk-next-25.1.3.zip', size: 253696604 },
-		linuxDeb: { url: 'https://github.com/cutls/thedesk-next/releases/download/v25.1.3/thedesk-next_25.1.3_amd64.deb', size: 157832612 },
-		win: { url: 'https://github.com/cutls/thedesk-next/releases/download/v25.1.3/TheDesk25.1.3.msi', size: 174800896 },
-	},
-}
+export const files = {"semanticVersion":"25.1.4","version":"25.1.4 (Aiko)","codename":"Aiko","lastCodename":"Aiko","lastVersion":"25.1.3","lastDls":34,"assets":{"mac":{"url":"https://github.com/cutls/thedesk-next/releases/download/v25.1.4/TheDesk-25.1.4-universal.dmg","size":294632778},"linuxZip":{"url":"https://github.com/cutls/thedesk-next/releases/download/v25.1.4/thedesk-next-25.1.4.zip","size":253696516},"linuxDeb":{"url":"https://github.com/cutls/thedesk-next/releases/download/v25.1.4/thedesk-next_25.1.4_amd64.deb","size":157814556},"win":{"url":"https://github.com/cutls/thedesk-next/releases/download/v25.1.4/TheDesk25.1.4.msi","size":174792704}}}
