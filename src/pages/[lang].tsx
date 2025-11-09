@@ -173,9 +173,6 @@ export default function Home({ t, lang }: IProps) {
 						<AlertTitle>{t.olderV24}</AlertTitle>
 						<AlertDescription>{t.olderV24Notice}</AlertDescription>
 					</Box>
-					<Button colorScheme="orange" as="a" href={lang === 'ja' ? '/v24/ja' : '/v24/en'}>
-						v24
-					</Button>
 				</Alert>
 				<Alert status="warning" my={10}>
 					<AlertIcon />
@@ -247,6 +244,10 @@ export default function Home({ t, lang }: IProps) {
 								</Button>
 							</TabPanel>
 							<TabPanel>
+								<Box h={3} />
+								<Link href="https://apps.apple.com/jp/app/thedesk/id6754771838" isExternal>
+									<Image src="/mac-app-store-badge.svg" width={180} />
+								</Link>
 								<Text fontWeight="bold" mt={3}>
 									{t.download}
 									<Badge ml={2} mt={-1} colorScheme={getColorOfCodename(files.semanticVersion)} textTransform="initial">

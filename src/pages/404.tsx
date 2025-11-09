@@ -8,7 +8,6 @@ export default function Home() {
 	return (
 		<Container centerContent={true} h="100vh" justifyContent="center">
 			<Head>
-				<html lang="en" />
 				<title>404 - TheDesk</title>
 				<meta name="description" content="TheDesk - Mastodon client for PC" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
