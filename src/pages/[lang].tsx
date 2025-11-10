@@ -82,6 +82,7 @@ const ja = {
 	},
 	donate: 'ご支援のお願い',
 	donateText: 'TheDeskは営利目的ではないため、有料機能や広告は一切ありません。皆様の支援により開発を続けています。',
+	privacyPolicy: 'プライバシーポリシー',
 }
 
 const en = {
@@ -126,6 +127,7 @@ const en = {
 	},
 	donate: 'Donation',
 	donateText: 'TheDesk is not for profit, so there are no paid features or advertisements. We continue to develop with your support.',
+	privacyPolicy: 'Privacy Policy',
 }
 const i18n = {
 	ja,
@@ -155,7 +157,14 @@ export default function Home({ t, lang }: IProps) {
 				<link rel="icon" href="/desk.svg" />
 			</Head>
 			<Container centerContent={true} p={10} maxW={650}>
-				<IconButton onClick={toggleColorMode} pos="absolute" top={5} right={5} aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'}`} icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />} />
+				<IconButton
+					onClick={toggleColorMode}
+					pos="absolute"
+					top={5}
+					right={5}
+					aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'}`}
+					icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+				/>
 				<Image src={DeskLogo} w={70} />
 				<Heading as="h1" fontSize={40} textAlign="center">
 					TheDesk
@@ -373,6 +382,9 @@ export default function Home({ t, lang }: IProps) {
 					</Link>
 					, e-mail: p@cutls.dev
 				</Text>
+				<Link color="teal" href="/privacy" mt={3}>
+					{t.privacyPolicy}
+				</Link>
 				<Badge mt={3} colorScheme={getColorOfCodename(files.semanticVersion)} textTransform="initial">
 					{files.semanticVersion} ({files.codename})
 				</Badge>
