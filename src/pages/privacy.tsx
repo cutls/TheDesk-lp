@@ -91,19 +91,7 @@ export default function Home() {
 								開発者は、本ポリシーの第1項に記載の通り、利用者の個人を特定しうる情報を原則として取得・保存しておりません。
 							</Text>
 							<Text my={2} ml={5}>
-								万が一、将来的に何らかの個人情報を取得する場合においても、以下のいずれかに該当する場合を除き、利用者の同意なく個人情報を第三者に開示または提供することはありません。
-							</Text>
-							<Text my={2} ml={10} as="li">
-								日本の法令に基づき開示が義務付けられる場合
-							</Text>
-							<Text my={2} ml={10} as="li">
-								人の生命、身体または財産の保護のために必要がある場合であって、利用者の同意を得ることが困難である場合
-							</Text>
-							<Text my={2} ml={10} as="li">
-								公衆衛生の向上または児童の健全な育成の推進のために特に必要がある場合であって、利用者の同意を得ることが困難である場合
-							</Text>
-							<Text my={2} ml={10} as="li">
-								国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合であって、利用者の同意を得ることにより当該事務の遂行に支障を及ぼすおそれがある場合
+								万が一、将来的に何らかの個人情報を取得する場合においても、日本の法令に基づき開示が義務付けられる場合に該当する場合を除き、利用者の同意なく個人情報を第三者に開示または提供することはありません。
 							</Text>
 							<Text my={2} fontSize={18} fontWeight="bold">
 								4. プライバシーポリシーの変更
@@ -190,20 +178,7 @@ export default function Home() {
 							</Text>
 							<Text my={2} ml={5}>
 								In the unlikely event that the Developer collects any personal information in the future, the Developer will not disclose or provide such information to a third party without your
-								consent, except in the following cases:
-							</Text>
-							<Text my={2} ml={10} as="li">
-								When required by law. (This Privacy Policy shall be governed by and construed in accordance with the laws of Japan.)
-							</Text>
-							<Text my={2} ml={10} as="li">
-								When it is necessary to protect human life, body, or property, and it is difficult to obtain your consent.
-							</Text>
-							<Text my={2} ml={10} as="li">
-								When it is particularly necessary for improving public health or promoting the sound growth of children, and it is difficult to obtain your consent.
-							</Text>
-							<Text my={2} ml={10} as="li">
-								When it is necessary to cooperate with a state or local government entity, or a party commissioned by them, in executing affairs prescribed by law, and obtaining your consent may
-								impede the execution of such affairs.
+								consent, except in required by law. (This Privacy Policy shall be governed by and construed in accordance with the laws of Japan.)
 							</Text>
 							<Text my={2} fontSize={18} fontWeight="bold">
 								4. Changes to This Privacy Policy
