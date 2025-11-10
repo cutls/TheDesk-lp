@@ -7,14 +7,12 @@ import {
 	Box,
 	Button,
 	ButtonGroup,
-	Code,
 	Container,
-	Flex,
 	Heading,
+	IconButton,
 	Image,
 	Link,
 	Stat,
-	StatArrow,
 	StatGroup,
 	StatHelpText,
 	StatLabel,
@@ -25,6 +23,7 @@ import {
 	TabPanels,
 	Tabs,
 	Text,
+	useColorMode,
 } from '@chakra-ui/react'
 import Head from 'next/head'
 import type React from 'react'
@@ -32,11 +31,12 @@ import type React from 'react'
 const DeskLogo = '/desk.svg'
 const LP1 = '/lp1-new.png'
 
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { ExternalLinkIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
 import type { GetStaticPropsContext } from 'next'
 import { useEffect, useState } from 'react'
 import { files } from '../meta'
 import { getColorOfCodename } from '../utils/getColorOfCodename'
+import { state } from '@/utils/lang'
 
 const { assets } = files
 const { win, linuxDeb, linuxZip, mac } = assets
@@ -139,12 +139,15 @@ const s = (size: number) => `${Math.floor((size / 1024 / 1024) * 10) / 10}MB`
 
 export default function Home({ t, lang }: IProps) {
 	const [isDefault, setIsDefault] = useState(true)
+	const { colorMode, toggleColorMode } = useColorMode()
+	state.locale = lang
 	useEffect(() => {
 		const isJa = !!navigator.language.match(/^ja/)
 		setIsDefault(lang === 'ja' ? isJa : !isJa)
 	}, [])
+	const alpha = colorMode === 'light' ? 'whiteAlpha' : ''
 	return (
-		<html lang={lang}>
+		<main>
 			<Head>
 				<title>TheDesk</title>
 				<meta name="description" content="TheDesk - Mastodon client for PC" />
@@ -152,6 +155,7 @@ export default function Home({ t, lang }: IProps) {
 				<link rel="icon" href="/desk.svg" />
 			</Head>
 			<Container centerContent={true} p={10} maxW={650}>
+				<IconButton onClick={toggleColorMode} pos="absolute" top={5} right={5} aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'}`} icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />} />
 				<Image src={DeskLogo} w={70} />
 				<Heading as="h1" fontSize={40} textAlign="center">
 					TheDesk
@@ -167,21 +171,14 @@ export default function Home({ t, lang }: IProps) {
 						Switch to {lang === 'ja' ? 'English' : '日本語'}
 					</Button>
 				) : null}
-				<Alert status="warning" mt={10}>
-					<AlertIcon />
-					<Box>
-						<AlertTitle>{t.olderV24}</AlertTitle>
-						<AlertDescription>{t.olderV24Notice}</AlertDescription>
-					</Box>
-				</Alert>
-				<Alert status="warning" my={10}>
+				<Alert status="warning" my={10} borderRadius={15}>
 					<AlertIcon />
 					<Box>
 						<AlertTitle>{t.migrate.v25_1_0}</AlertTitle>
 						<AlertDescription>{t.migrate.v25_1_0__desc}</AlertDescription>
 					</Box>
 				</Alert>
-				<Box h={450} borderColor="#E2E8F0" borderWidth={1} overflowY="scroll" p={3} mb={10} borderRadius={5}>
+				<Box h={450} borderColor="#E2E8F0" borderWidth={1} overflowY="scroll" p={3} mb={10} borderRadius={15}>
 					<Tabs w={600} maxW="calc(100vw - 2rem)">
 						<TabList>
 							<Tab>Windows</Tab>
@@ -192,7 +189,7 @@ export default function Home({ t, lang }: IProps) {
 						<TabPanels>
 							<TabPanel>
 								<Text>{t.winNotice}</Text>
-								<Text fontWeight="bold">
+								<Text fontWeight="bold" my={2}>
 									{t.installer}(msi)
 									<Badge ml={2} mt={-1} colorScheme={getColorOfCodename(files.semanticVersion)} textTransform="initial">
 										{files.semanticVersion} ({files.codename})
@@ -201,7 +198,7 @@ export default function Home({ t, lang }: IProps) {
 								<ButtonGroup>
 									<Button as="a" href={win.url} colorScheme="teal" w={120}>
 										64bit
-										<Badge colorScheme="whiteAlpha" ml={2}>
+										<Badge colorScheme={alpha} ml={2}>
 											{s(win.size)}
 										</Badge>
 									</Button>
@@ -215,7 +212,7 @@ export default function Home({ t, lang }: IProps) {
 								</Button>
 							</TabPanel>
 							<TabPanel>
-								<Text fontWeight="bold" mt={3}>
+								<Text fontWeight="bold" mb={2}>
 									{t.download}
 									<Badge ml={2} mt={-1} colorScheme={getColorOfCodename(files.semanticVersion)} textTransform="initial">
 										{files.semanticVersion} ({files.codename})
@@ -224,13 +221,13 @@ export default function Home({ t, lang }: IProps) {
 								<ButtonGroup>
 									<Button as="a" href={linuxDeb.url} colorScheme="teal" w={120}>
 										Deb
-										<Badge colorScheme="whiteAlpha" ml={2}>
+										<Badge colorScheme={alpha} ml={2}>
 											{s(linuxDeb.size)}
 										</Badge>
 									</Button>
 									<Button as="a" href={linuxZip.url} colorScheme="blue" w={120}>
 										ZIP
-										<Badge colorScheme="whiteAlpha" ml={2}>
+										<Badge colorScheme={alpha} ml={2}>
 											{s(linuxZip.size)}
 										</Badge>
 									</Button>
@@ -248,19 +245,19 @@ export default function Home({ t, lang }: IProps) {
 								<Link href="https://apps.apple.com/jp/app/thedesk/id6754771838" isExternal>
 									<Image src="/mac-app-store-badge.svg" width={180} />
 								</Link>
-								<Text fontWeight="bold" mt={3}>
+								<Text fontWeight="bold" mt={2}>
 									{t.download}
 									<Badge ml={2} mt={-1} colorScheme={getColorOfCodename(files.semanticVersion)} textTransform="initial">
 										{files.semanticVersion} ({files.codename})
 									</Badge>
 								</Text>
-								<Button as="a" href={mac.url} colorScheme="teal">
+								<Button as="a" href={mac.url} colorScheme="teal" mt={2}>
 									Universal
-									<Badge colorScheme="whiteAlpha" ml={2}>
+									<Badge colorScheme={alpha} ml={2}>
 										{s(mac.size)}
 									</Badge>
 								</Button>
-								<Text>{t.macNotice}</Text>
+								<Text mt={2}>{t.macNotice}</Text>
 								<Text fontWeight="bold">{t.other}</Text>
 								<Text>{t.otherText}</Text>
 								<Button as="a" href="https://github.com/cutls/thedesk-next/releases" target="_blank" rel="noopener" mb={3}>
@@ -268,7 +265,7 @@ export default function Home({ t, lang }: IProps) {
 								</Button>
 							</TabPanel>
 							<TabPanel>
-								<Text>{t.webNotice}</Text>
+								<Text mb={2}>{t.webNotice}</Text>
 								<Button as="a" href="https://v25.thedesk.top" target="_blank" rel="noopener" colorScheme="teal" mb={3}>
 									{t.run}
 								</Button>
@@ -282,7 +279,7 @@ export default function Home({ t, lang }: IProps) {
 				<Link href="https://fedistar.net" isExternal mb={5}>
 					Fedistar (© 2023 Akira Fukushima) <ExternalLinkIcon mx="2px" />
 				</Link>
-				<Image src={LP1} borderRadius={5} />
+				<Image src={LP1} borderRadius={15} />
 				<Heading as="h2" mt={3} fontSize={28}>
 					{t.difference}
 				</Heading>
@@ -326,8 +323,8 @@ export default function Home({ t, lang }: IProps) {
 						Liberapay
 					</Button>
 				</ButtonGroup>
-				<Box h={20} />
-				<StatGroup w={600} maxW="100%" borderColor="#E2E8F0" borderWidth={1} p={3} mb={10} borderRadius={5}>
+				<Box h={10} />
+				<StatGroup w={600} maxW="100%" borderColor="#E2E8F0" borderWidth={1} p={3} mb={5} borderRadius={15}>
 					<Stat>
 						<StatLabel>LICENSE</StatLabel>
 						<StatNumber>GPL-3.0</StatNumber>
@@ -352,6 +349,18 @@ export default function Home({ t, lang }: IProps) {
 						</Stat>
 					)}
 				</StatGroup>
+				<Alert status="warning" my={5} borderRadius={15}>
+					<AlertIcon />
+					<Box>
+						<AlertTitle>{t.olderV24}</AlertTitle>
+						<AlertDescription>{t.olderV24Notice}</AlertDescription>
+					</Box>
+					<Box>
+						<Button as="a" href={`/v24/${lang}`} colorScheme="orange" ml={5}>
+							v24
+						</Button>
+					</Box>
+				</Alert>
 				<Text>(c) 2018 TheDesk</Text>
 				<Text fontWeight="bold">
 					Made by Cutls P and contributors with love
@@ -359,8 +368,8 @@ export default function Home({ t, lang }: IProps) {
 				</Text>
 				<Text>
 					Contact:{' '}
-					<Link color="teal" href="https://kids.0px.io/@Cutls" target="_blank" rel="noopener">
-						@cutls@kids.0px.io
+					<Link color="teal" href="https://kirishima.cloud/@Cutls" target="_blank" rel="noopener">
+						@cutls@kirishima.cloud
 					</Link>
 					, e-mail: p@cutls.dev
 				</Text>
@@ -368,7 +377,7 @@ export default function Home({ t, lang }: IProps) {
 					{files.semanticVersion} ({files.codename})
 				</Badge>
 			</Container>
-		</html>
+		</main>
 	)
 }
 export async function getStaticPaths() {

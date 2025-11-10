@@ -3,8 +3,10 @@ import { Box, Button, Container, Flex, Input, Text, useToast } from '@chakra-ui/
 import Head from 'next/head'
 import * as React from 'react'
 import { getUrlParams } from '../utils/getUrlParams'
+import { state } from '@/utils/lang'
 
 export default function Home() {
+	state.locale = 'en'
 	const ref = React.useRef<null | HTMLInputElement>(null)
 	const toast = useToast()
 	const [code, setCode] = React.useState('')
@@ -36,7 +38,7 @@ export default function Home() {
 		showMessage()
 	}
 	return (
-		<html lang="en">
+		<main>
 			<Head>
 				<title>Integration - TheDesk</title>
 				<meta name="description" content="TheDesk - Mastodon client for PC" />
@@ -55,6 +57,6 @@ export default function Home() {
 					</Flex>
 				</Box>
 			</Container>
-		</html>
+		</main>
 	)
 }

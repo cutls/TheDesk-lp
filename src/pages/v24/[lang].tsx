@@ -10,6 +10,7 @@ import {
 	Code,
 	Container,
 	Heading,
+	IconButton,
 	Image,
 	Link,
 	Stat,
@@ -24,6 +25,7 @@ import {
 	TabPanels,
 	Tabs,
 	Text,
+	useColorMode,
 } from '@chakra-ui/react'
 import type React from 'react'
 
@@ -31,12 +33,13 @@ const DeskLogo = '/desk.svg'
 const LP1 = '/lp1.png'
 const LP2 = '/lp2.png'
 
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { ExternalLinkIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
 import type { GetStaticPropsContext } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { files } from '../../meta.v24'
 import { getColorOfCodename } from '../../utils/getColorOfCodename'
+import { state } from '@/utils/lang'
 
 const { assets } = files
 const { winIa32, winIa32P, winX64, winX64P, linuxDeb, linuxSnap, linuxZip, mac } = assets
@@ -95,15 +98,18 @@ interface IProps {
 const s = (size: number) => `${Math.floor((size / 1024 / 1024) * 10) / 10}MB`
 
 export default function Home(props: IProps) {
+	const { colorMode, toggleColorMode } = useColorMode()
 	const [isDefault, setIsDefault] = useState(true)
 	useEffect(() => {
 		const isJa = !!navigator.language.match(/^ja/)
 		setIsDefault(lang === 'ja' ? isJa : !isJa)
 	}, [])
 	const { lang } = props
+	state.locale = lang
 	const t = i18n[lang]
+	const alpha = colorMode === 'light' ? 'whiteAlpha' : ''
 	return (
-		<html lang={lang}>
+		<main>
 			<Head>
 				<title>TheDesk</title>
 				<meta name="description" content="TheDesk - Mastodon client for PC" />
@@ -111,6 +117,7 @@ export default function Home(props: IProps) {
 				<link rel="icon" href="/desk.svg" />
 			</Head>
 			<Container centerContent={true} p={10}>
+				<IconButton onClick={toggleColorMode} pos="absolute" top={5} right={5} aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'}`} icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />} />	
 				<Image src={DeskLogo} w={70} />
 				<Heading as="h1" fontSize={40} textAlign="center">
 					TheDesk
@@ -141,13 +148,13 @@ export default function Home(props: IProps) {
 								<ButtonGroup>
 									<Button as="a" href={winX64.url} colorScheme="teal" w={120}>
 										64bit
-										<Badge colorScheme="whiteAlpha" ml={2}>
+										<Badge colorScheme={alpha} ml={2}>
 											{s(winX64.size)}
 										</Badge>
 									</Button>
 									<Button as="a" href={winIa32.url} colorScheme="blue" w={120}>
 										32bit
-										<Badge colorScheme="whiteAlpha" ml={2}>
+										<Badge colorScheme={alpha} ml={2}>
 											{s(winIa32.size)}
 										</Badge>
 									</Button>
@@ -158,13 +165,13 @@ export default function Home(props: IProps) {
 								<ButtonGroup>
 									<Button as="a" href={winX64P.url} colorScheme="blue" w={120}>
 										64bit
-										<Badge colorScheme="whiteAlpha" ml={2}>
+										<Badge colorScheme={alpha} ml={2}>
 											{s(winX64P.size)}
 										</Badge>
 									</Button>
 									<Button as="a" href={winIa32P.url} colorScheme="blue" w={120}>
 										32bit
-										<Badge colorScheme="whiteAlpha" ml={2}>
+										<Badge colorScheme={alpha} ml={2}>
 											{s(winIa32P.size)}
 										</Badge>
 									</Button>
@@ -190,19 +197,19 @@ export default function Home(props: IProps) {
 								<ButtonGroup>
 									<Button as="a" href={linuxDeb.url} colorScheme="teal" w={120}>
 										Deb
-										<Badge colorScheme="whiteAlpha" ml={2}>
+										<Badge colorScheme={alpha} ml={2}>
 											{s(linuxDeb.size)}
 										</Badge>
 									</Button>
 									<Button as="a" href={linuxSnap.url} colorScheme="blue" w={120}>
 										Snap
-										<Badge colorScheme="whiteAlpha" ml={2}>
+										<Badge colorScheme={alpha} ml={2}>
 											{s(linuxSnap.size)}
 										</Badge>
 									</Button>
 									<Button as="a" href={linuxZip.url} colorScheme="blue" w={120}>
 										ZIP
-										<Badge colorScheme="whiteAlpha" ml={2}>
+										<Badge colorScheme={alpha} ml={2}>
 											{s(linuxZip.size)}
 										</Badge>
 									</Button>
@@ -228,7 +235,7 @@ export default function Home(props: IProps) {
 								</Text>
 								<Button as="a" href={mac.url} colorScheme="teal">
 									Universal
-									<Badge colorScheme="whiteAlpha" ml={2}>
+									<Badge colorScheme={alpha} ml={2}>
 										{s(mac.size)}
 									</Badge>
 								</Button>
@@ -312,8 +319,8 @@ export default function Home(props: IProps) {
 				</Text>
 				<Text>
 					Contact:{' '}
-					<Link color="teal" href="https://2m.cutls.com/@Cutls" target="_blank" rel="noopener">
-						@Cutls@2m.cutls.com
+					<Link color="teal" href="https://kirishima.cloud/@Cutls" target="_blank" rel="noopener">
+						@Cutls@kirishima.cloud
 					</Link>
 					, e-mail: p@cutls.dev
 				</Text>
@@ -321,7 +328,7 @@ export default function Home(props: IProps) {
 					{files.semanticVersion} ({files.codename})
 				</Badge>
 			</Container>
-		</html>
+		</main>
 	)
 }
 export async function getStaticPaths() {
