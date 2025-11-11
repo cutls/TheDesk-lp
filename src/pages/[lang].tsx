@@ -377,7 +377,7 @@ export default function Home({ t, lang }: IProps) {
 				</Text>
 				<Text>
 					Contact:{' '}
-					<Link color="teal" href="https://6m.cutls.dev/@Cutls" target="_blank" rel="noopener">
+					<Link color="teal" href="https://6m.cutls.dev/@cutls" target="_blank" rel="noopener">
 						@cutls@6m.cutls.dev
 					</Link>
 					, e-mail: p@cutls.dev
