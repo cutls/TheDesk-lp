@@ -95,7 +95,7 @@ export default function Home({ t, lang }: IProps) {
 						Switch to {lang === 'ja' ? 'English' : '日本語'}
 					</Button>
 				) : null}
-				<Link href="https://apps.apple.com/jp/app/thedesk/id6754771838" isExternal>
+				<Link href="https://apps.apple.com/jp/app/tootdesk/id1591748028" isExternal>
 					<Image src="/ios-app-store-badge.svg" width={180} />
 				</Link>
 				<Text>(c) 2026 TheDesk</Text>
