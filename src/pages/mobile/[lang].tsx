@@ -91,7 +91,7 @@ export default function Home({ t, lang }: IProps) {
 					{t.description}
 				</Text>
 				{!isDefault ? (
-					<Button as="a" href={lang === 'ja' ? '/en' : '/'} size="lg" mb={3} colorScheme="orange">
+					<Button as="a" href={lang === 'ja' ? '/mobile/en' : '/mobile/ja'} size="lg" mb={3} colorScheme="orange">
 						Switch to {lang === 'ja' ? 'English' : '日本語'}
 					</Button>
 				) : null}
