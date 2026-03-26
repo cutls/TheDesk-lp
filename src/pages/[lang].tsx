@@ -8,6 +8,7 @@ import {
 	Button,
 	ButtonGroup,
 	Container,
+	Flex,
 	Heading,
 	IconButton,
 	Image,
@@ -24,6 +25,7 @@ import {
 	Tabs,
 	Text,
 	useColorMode,
+	useToast,
 } from '@chakra-ui/react'
 import Head from 'next/head'
 import type React from 'react'
@@ -31,7 +33,7 @@ import type React from 'react'
 const DeskLogo = '/desk.svg'
 const LP1 = '/lp1-new.png'
 
-import { ExternalLinkIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
+import { CopyIcon, ExternalLinkIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
 import type { GetStaticPropsContext } from 'next'
 import { useEffect, useState } from 'react'
 import { files } from '../meta'
@@ -39,7 +41,7 @@ import { getColorOfCodename } from '../utils/getColorOfCodename'
 import { state } from '@/utils/lang'
 
 const { assets } = files
-const { win, linuxDeb, linuxZip, mac } = assets
+const { win, linuxDeb, linuxZip, mac, winArm64 } = assets
 const ja = {
 	olderV24: '過去バージョン(v24以前)はこちら',
 	olderV24Notice: 'v24以前とは互換性がありません。v25以降をインストールすると以前の設定は全て削除されます。ご了承ください。',
@@ -54,6 +56,7 @@ const ja = {
 	other: 'その他',
 	otherText: '過去バージョン',
 	winNotice: 'Windows SmartScreenによってインストールができない場合がありますが、「詳細情報」を押すと実行できます。',
+	winArchNotice: 'ほとんどのコンピュータはx64で動作します。',
 	macNotice: 'Intel/Apple Silicon両対応。公証されており、セキュリティ設定の変更は必要ありません。',
 	webNotice: 'Chrome, Firefoxで最新版(mainブランチ)が利用いただけます。一部機能はご利用いただけません。',
 	noticeHead: 'TheDesk(v25~)はFedistarの改造版です。',
@@ -83,6 +86,7 @@ const ja = {
 	donate: 'ご支援のお願い',
 	donateText: 'TheDeskは営利目的ではないため、有料機能や広告は一切ありません。皆様の支援により開発を続けています。',
 	privacyPolicy: 'プライバシーポリシー',
+	copied: 'コピーしました',
 }
 
 const en = {
@@ -99,6 +103,7 @@ const en = {
 	other: 'Others',
 	otherText: 'Older version',
 	winNotice: 'Installation may not be possible due to Windows SmartScreen, but you can run it by pressing "More info".',
+	winArchNotice: 'Most computers run on x64.',
 	macNotice: 'for both Intel & Apple Silicon. It is notarized and does not require any changes to your security settings.',
 	webNotice: 'The latest(main branch) version is available for Chrome and Firefox. Some features are not available.',
 	noticeHead: 'TheDesk(v25~) is based on Fedistar.',
@@ -128,6 +133,7 @@ const en = {
 	donate: 'Donation',
 	donateText: 'TheDesk is not for profit, so there are no paid features or advertisements. We continue to develop with your support.',
 	privacyPolicy: 'Privacy Policy',
+	copied: 'Copied',
 }
 const i18n = {
 	ja,
@@ -141,13 +147,32 @@ const s = (size: number) => `${Math.floor((size / 1024 / 1024) * 10) / 10}MB`
 
 export default function Home({ t, lang }: IProps) {
 	const [isDefault, setIsDefault] = useState(true)
+	const [homebrewVer, setHomebrewVer] = useState('')
 	const { colorMode, toggleColorMode } = useColorMode()
+	const toast = useToast()
 	state.locale = lang
 	useEffect(() => {
 		const isJa = !!navigator.language.match(/^ja/)
 		setIsDefault(lang === 'ja' ? isJa : !isJa)
 	}, [])
-	const alpha = colorMode === 'light' ? 'whiteAlpha' : ''
+	const isDark = colorMode === 'dark'
+	const alpha = !isDark ? 'whiteAlpha' : ''
+	const copyHomebrew = (str: string) => {
+		navigator.clipboard.writeText('brew install --cask thedesk')
+		toast({
+			title: str,
+			status: 'success',
+		})
+	}
+	useEffect(() => {
+		const fn = async () => {
+			const res = await fetch('https://formulae.brew.sh/api/cask/thedesk.json')
+			if (!res.ok) return
+			const data = await res.json()
+			setHomebrewVer(data.version)
+		}
+		fn()
+	}, [])
 	return (
 		<main>
 			<Head>
@@ -157,14 +182,7 @@ export default function Home({ t, lang }: IProps) {
 				<link rel="icon" href="/desk.svg" />
 			</Head>
 			<Container centerContent={true} p={10} maxW={650}>
-				<IconButton
-					onClick={toggleColorMode}
-					pos="absolute"
-					top={5}
-					right={5}
-					aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'}`}
-					icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-				/>
+				<IconButton onClick={toggleColorMode} pos="absolute" top={5} right={5} aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'}`} icon={!isDark ? <MoonIcon /> : <SunIcon />} />
 				<Image src={DeskLogo} w={70} />
 				<Heading as="h1" fontSize={40} textAlign="center">
 					TheDesk
@@ -187,7 +205,7 @@ export default function Home({ t, lang }: IProps) {
 						<AlertDescription>{t.migrate.v25_1_0__desc}</AlertDescription>
 					</Box>
 				</Alert>
-				<Box h={450} borderColor="#E2E8F0" borderWidth={1} overflowY="scroll" p={3} mb={10} borderRadius={15}>
+				<Box h={470} borderColor="#E2E8F0" borderWidth={1} overflowY="scroll" p={3} mb={10} borderRadius={15}>
 					<Tabs w={600} maxW="calc(100vw - 2rem)">
 						<TabList>
 							<Tab>Windows</Tab>
@@ -204,11 +222,18 @@ export default function Home({ t, lang }: IProps) {
 										{files.semanticVersion} ({files.codename})
 									</Badge>
 								</Text>
+								<Text>{t.winArchNotice}</Text>
 								<ButtonGroup>
-									<Button as="a" href={win.url} colorScheme="teal" w={120}>
-										64bit
+									<Button as="a" href={win.url} colorScheme="teal">
+										x64
 										<Badge colorScheme={alpha} ml={2}>
 											{s(win.size)}
+										</Badge>
+									</Button>
+									<Button as="a" href={winArm64.url} colorScheme="blue">
+										arm64
+										<Badge colorScheme={alpha} ml={2}>
+											{s(winArm64.size)}
 										</Badge>
 									</Button>
 								</ButtonGroup>
@@ -272,6 +297,19 @@ export default function Home({ t, lang }: IProps) {
 								<Button as="a" href="https://github.com/cutls/thedesk-next/releases" target="_blank" rel="noopener" mb={3}>
 									GitHub
 								</Button>
+								<Box />
+								<Text as="span" fontWeight="bold">Homebrew{files.semanticVersion !== homebrewVer && '⚠️'}</Text>
+								<Badge ml={2} textTransform="initial" colorScheme={files.semanticVersion === homebrewVer ? getColorOfCodename(files.semanticVersion) : 'red'}>
+									{homebrewVer || '...'}{files.semanticVersion !== homebrewVer && '⚠️'}
+								</Badge>
+
+								<Flex>
+									<Flex bgColor={isDark ? '#4b566b' : '#F0F0F0'} p={2} borderRadius={5} align="center">
+										<span style={{ fontFamily: 'monospace', marginRight: 5 }}>$</span>
+										<pre>brew install --cask thedesk</pre>
+										<IconButton icon={<CopyIcon />} size="xs" aria-label="Copy" ml={2} onClick={() => copyHomebrew(t.copied)} />
+									</Flex>
+								</Flex>
 							</TabPanel>
 							<TabPanel>
 								<Text mb={2}>{t.webNotice}</Text>

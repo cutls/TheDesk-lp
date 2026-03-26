@@ -92,7 +92,8 @@ const mainV25 = async () => {
 		const ret = {}
 		for (const asset of assets) {
 			const { browser_download_url: url, name: assetName, size } = asset
-			if (assetName.match(/TheDesk\.?([0-9.]+)\.msi/)) ret.win = { url, size }
+			if (assetName.match(/TheDesk-x64\.?([0-9.]+)\.msi/)) ret.win = { url, size }
+			if (assetName.match(/TheDesk-arm64\.?([0-9.]+)\.msi/)) ret.winArm64 = { url, size }
 			if (assetName.match(/thedesk-next_([0-9.]+)_amd64\.deb/)) ret.linuxDeb = { url, size }
 			if (assetName.match(/thedesk-next-([0-9.]+)\.zip/)) ret.linuxZip = { url, size }
 			if (assetName.match(/TheDesk-([0-9.]+)-universal\.dmg/)) ret.mac = { url, size }
