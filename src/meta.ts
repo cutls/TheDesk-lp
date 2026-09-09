@@ -6,6 +6,7 @@ export const files = {
 	lastVersion: '25.3.1',
 	lastDls: 1892,
 	assets: {
+		mac: { url: 'https://github.com/cutls/thedesk-next/releases/download/v25.4.0/TheDesk-25.4.0-universal.dmg', size: 295774252 },
 		winArm64: { url: 'https://github.com/cutls/thedesk-next/releases/download/v25.4.0/TheDesk-arm64.25.4.0.msi', size: 163014172 },
 		linuxZip: { url: 'https://github.com/cutls/thedesk-next/releases/download/v25.4.0/thedesk-next-25.4.0.zip', size: 254325128 },
 		linuxDeb: { url: 'https://github.com/cutls/thedesk-next/releases/download/v25.4.0/thedesk-next_25.4.0_amd64.deb', size: 158053542 },
