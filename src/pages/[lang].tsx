@@ -57,7 +57,7 @@ const ja = {
 	otherText: '過去バージョン',
 	winNotice: 'Windows SmartScreenによってインストールができない場合がありますが、「詳細情報」を押すと実行できます。',
 	winArchNotice: 'ほとんどのコンピュータはx64で動作します。',
-	macNotice: 'Intel/Apple Silicon両対応。公証されており、セキュリティ設定の変更は必要ありません。',
+	macNotice: 'Apple Siliconのみに対応。公証されており、セキュリティ設定の変更は必要ありません。',
 	webNotice: 'Chrome, Firefoxで最新版(mainブランチ)が利用いただけます。一部機能はご利用いただけません。',
 	noticeHead: 'TheDesk(v25~)はFedistarの改造版です。',
 	difference: 'Fedistarとの違い',
@@ -104,7 +104,7 @@ const en = {
 	otherText: 'Older version',
 	winNotice: 'Installation may not be possible due to Windows SmartScreen, but you can run it by pressing "More info".',
 	winArchNotice: 'Most computers run on x64.',
-	macNotice: 'for both Intel & Apple Silicon. It is notarized and does not require any changes to your security settings.',
+	macNotice: 'for Apple Silicon only. It is notarized and does not require any changes to your security settings.',
 	webNotice: 'The latest(main branch) version is available for Chrome and Firefox. Some features are not available.',
 	noticeHead: 'TheDesk(v25~) is based on Fedistar.',
 	difference: "What's different from Fedistar?",
@@ -286,7 +286,7 @@ export default function Home({ t, lang }: IProps) {
 									</Badge>
 								</Text>
 								<Button as="a" href={mac.url} colorScheme="teal" mt={2}>
-									Universal
+									arm64
 									<Badge colorScheme={alpha} ml={2}>
 										{s(mac.size)}
 									</Badge>

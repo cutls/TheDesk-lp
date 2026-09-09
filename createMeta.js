@@ -96,7 +96,7 @@ const mainV25 = async () => {
 			if (assetName.match(/TheDesk-arm64\.?([0-9.]+)\.msi/)) ret.winArm64 = { url, size }
 			if (assetName.match(/thedesk-next_([0-9.]+)_amd64\.deb/)) ret.linuxDeb = { url, size }
 			if (assetName.match(/thedesk-next-([0-9.]+)\.zip/)) ret.linuxZip = { url, size }
-			if (assetName.match(/TheDesk-([0-9.]+)-universal\.dmg/)) ret.mac = { url, size }
+			if (assetName.match(/TheDesk-([0-9.]+)-arm64\.dmg/)) ret.mac = { url, size }
 		}
 		const lastRelease = released[1]
 		if (!lastRelease) {
